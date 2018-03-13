@@ -1,0 +1,157 @@
+﻿@model List<OrdenacionDatosXml.Models.Empleado>
+
+@{
+    ViewBag.Title = "Ordenación de datos XML";
+}
+
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+    <p class="lead">En este proyecto ordenaremos y filtraremos datos obtenidos desde un documento XML mediante Linq.</p>
+</div>
+
+<div class="container">
+    @if (Model != null)
+    {
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <h3>PARÁMETROS PARA FILTRAR Y ORDENAR:</h3>
+                <fieldset class="col-sm-6">
+                    <legend>Columna sobre la que filtrar:</legend>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaF" value="Nombre" checked>
+                            <label class="form-check-label">Nombre</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaF" value="Apellido">
+                            <label class="form-check-label">Apellido</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaF" value="Coche">
+                            <label class="form-check-label">Coche</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaF" value="Pais">
+                            <label class="form-check-label">País</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaF" value="Telefono">
+                            <label class="form-check-label">Teléfono</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaF" value="FechaAlta">
+                            <label class="form-check-label">Fecha Alta</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="col-sm-6">
+                    <legend>Columna sobre la que ordenar:</legend>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaO" value="Nombre" checked>
+                            <label class="form-check-label">Nombre</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaO" value="Apellido">
+                            <label class="form-check-label">Apellido</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaO" value="Coche">
+                            <label class="form-check-label">Coche</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaO" value="Pais">
+                            <label class="form-check-label">País</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaO" value="Telefono">
+                            <label class="form-check-label">Teléfono</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="columnaO" value="FechaAlta">
+                            <label class="form-check-label">Fecha Alta</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row">
+                <fieldset class="col-sm-4">
+                    <legend>Filtrar por texto</legend>
+                    <div class="form-group">
+                        <label for="texto">Introduce un texto:</label>
+                        <input type="text" name="texto" class="form-control">
+                    </div>
+                </fieldset>
+                <fieldset class="col-sm-4">
+                    <legend>Filtrar por orden</legend>
+                    <div class="form-group">
+                        <label>Selecciona el orden:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="orden" value="ascendente">
+                            <label class="form-check-label">Ascendente</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="orden" value="descendente">
+                            <label class="form-check-label">Descendente</label>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="col-sm-4">
+                    <legend>Filtrar desde fecha</legend>
+                    <div class="form-group">
+                        <label for="fecha">Introduce la fecha:</label>
+                        <input type="number" name="fecha" class="form-control">
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">APLICAR</button>
+                </div>
+            </div>
+        }
+
+        <br />
+        <div class="row">
+            <h3>TABLA CON LOS DATOS (@ViewBag.Contador):</h3>
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>IdEmpleado</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Coche</th>
+                        <th>Pais</th>
+                        <th>Telefono</th>
+                        <th>FechaAlta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var e in Model)
+                    {
+                        <tr>
+                            <td>@e.IdEmpleado</td>
+                            <td>@e.Nombre</td>
+                            <td>@e.Apellido</td>
+                            <td>@e.Coche</td>
+                            <td>@e.Pais</td>
+                            <td>@e.Telefono</td>
+                            <td>@e.FechaAlta</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            ¡MODELO NULO!
+        </div>
+    }
+</div>
